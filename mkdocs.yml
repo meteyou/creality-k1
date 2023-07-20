@@ -4,3 +4,7 @@ theme:
   icon:
     logo: material/printer-3d
   language: en
+
+# add repo to mkdocs
+repo_name: meteyou/creality-k1
+repo_url: https://github.com/meteyou/creality-k1
