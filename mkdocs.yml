@@ -3,6 +3,7 @@ theme:
   name: material
   icon:
     logo: material/printer-3d
+    repo: fontawesome/brands/github
   language: en
 
 # add repo to mkdocs
