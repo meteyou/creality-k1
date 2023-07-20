@@ -1,3 +1,5 @@
 site_name: My Creality K1 Guide
 theme:
   name: material
+  icon:
+    logo: material/printer-3d
