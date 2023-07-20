@@ -8,3 +8,13 @@ theme:
 # add repo to mkdocs
 repo_name: meteyou/creality-k1
 repo_url: https://github.com/meteyou/creality-k1
+
+# add some social media buttons to the footer
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/meteyou
+    - icon: fontawesome/brands/mastodon
+      link: https://fosstodon.org/@meteyou
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/meteyou
