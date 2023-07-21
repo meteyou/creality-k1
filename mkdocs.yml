@@ -21,6 +21,11 @@ nav:
       - Extruder grip: hardware/extruder-grip.md
       - Door rattling: hardware/door-rattling.md
 
+# markdown extensions
+markdown_extensions:
+  - attr_list
+  - md_in_html
+
 # add some social media buttons to the footer
 extra:
   social:
