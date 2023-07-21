@@ -1,6 +1,8 @@
 site_name: My Creality K1 Guide
 theme:
   name: material
+  features:
+    - navigation.expand
   icon:
     logo: material/printer-3d
     repo: fontawesome/brands/github
@@ -9,6 +11,15 @@ theme:
 # add repo to mkdocs
 repo_name: meteyou/creality-k1
 repo_url: https://github.com/meteyou/creality-k1
+
+# navigation
+nav:
+  - Introduction: index.md
+  - Hardware:
+      - Index: hardware/index.md
+      - Filament path: hardware/filament-path.md
+      - Extruder grip: hardware/extruder-grip.md
+      - Door rattling: hardware/door-rattling.md
 
 # add some social media buttons to the footer
 extra:
