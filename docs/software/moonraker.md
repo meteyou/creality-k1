@@ -29,6 +29,7 @@ The last step is to activate the service. Here we download a ready to use servic
 cd /etc/init.d/
 rm S56moonraker_service
 wget https://raw.githubusercontent.com/meteyou/creality-k1/main/moonraker-config/S56moonraker_service
+chmod 755 S56moonraker_service
 ```
 
 After this change we can restart the printer and check if Moonraker is available. To restart the printer, execute the
