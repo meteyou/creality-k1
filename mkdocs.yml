@@ -8,6 +8,9 @@ theme:
     repo: fontawesome/brands/github
   language: en
 
+extra_css:
+  - stylesheets/youtube.css
+
 # add repo to mkdocs
 repo_name: meteyou/creality-k1
 repo_url: https://github.com/meteyou/creality-k1
