@@ -1,0 +1,9 @@
+# Hardware issues/fixes
+
+The Creality K1 has a few real hardware problems that I will discuss here and explain in detail and suggest solutions. I
+have added all the printable fixes I used to a Printables collection. You can find it
+[here](https://www.printables.com/@meteyou_78021/collections/751800).
+
+- [Filament path](hardware/filament-path.md)
+- [Extruder grip](hardware/extruder-grip.md)
+- [Door rattling](hardware/door-rattling.md)
