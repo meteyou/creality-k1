@@ -25,6 +25,7 @@ nav:
       - Door rattling: hardware/door-rattling.md
   - Software:
       - Index: software/index.md
+      - Root access: software/root-access.md
 
 # markdown extensions
 markdown_extensions:
