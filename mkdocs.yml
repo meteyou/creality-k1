@@ -23,6 +23,8 @@ nav:
       - Filament path: hardware/filament-path.md
       - Extruder grip: hardware/extruder-grip.md
       - Door rattling: hardware/door-rattling.md
+  - Software:
+      - Index: software/index.md
 
 # markdown extensions
 markdown_extensions:
