@@ -1,0 +1,180 @@
+#!/bin/sh
+#
+# Starts klipper service.
+#
+
+USER_DATA=/usr/data
+PROG=/usr/share/klippy-env/bin/python
+PY_SCRIPT=/usr/share/klipper/klippy/klippy.py
+PRINTER_DATA_DIR=$USER_DATA/printer_data
+PRINTER_CONFIG_DIR=$PRINTER_DATA_DIR/config
+PRINTER_LOGS_DIR=$PRINTER_DATA_DIR/logs
+GCODE_FILES_DIR=$PRINTER_DATA_DIR/gcodes
+PID_FILE=/var/run/klippy.pid
+
+mcu_reset()
+{
+    [ -z $(pidof klipper_mcu) ] || /etc/init.d/S57klipper_mcu restart
+}
+
+rm_pyc()
+{
+    find /usr/share/klipper/ -iname "*.pyc" | xargs rm -rf
+    sync
+}
+
+get_cfg_version()
+{
+    local cfg="$1"
+    local version=$(head "$cfg" | grep -w Version | awk '{print $3}')
+    local tmp=""
+
+    if [ "x$version" != "x" ]; then
+        # remove char '.'
+        tmp=${version//./}
+        # remove char 'v' or 'V'
+        tmp=${tmp//v/}
+        version=${tmp//V/}
+        echo "$version"
+    else
+        echo "000"
+    fi
+}
+
+update_config()
+{
+    local old_cfg="$2"
+    local new_cfg="$1"
+    local tmp_cfg=$PRINTER_CONFIG_DIR/.printer.cfg
+
+    local old_version=$(get_cfg_version "$old_cfg")
+    local new_version=$(get_cfg_version "$new_cfg")
+    echo "old_version: $old_version"
+    echo "new_version: $new_version"
+
+    if [ $new_version -gt $old_version ]; then
+        echo "update config"
+        cp "$new_cfg" "$tmp_cfg"
+        echo "" >> "$tmp_cfg"
+        cat "$old_cfg" | sed -n '/SAVE_CONFIG/,$p' >> "$tmp_cfg"
+        cp "$tmp_cfg" "$old_cfg" && sync
+    fi
+}
+
+copy_config()
+{
+    local model=$(get_sn_mac.sh model)
+    local board=$(get_sn_mac.sh board)
+
+    case $model in
+        "CR-10 H1")
+            config_dir=
+            gcode_dir=
+            ;;
+
+        "CR-K1")
+            if [ "$board" = "CR4CU220812S10" ]; then
+                config_dir=K1_CR4CU220812S10
+            elif [ "$board" = "CR4CU220812S11" ]; then
+                config_dir=K1_CR4CU220812S11
+            elif [ "$board" = "CR4CU220812S12" ]; then
+                config_dir=K1_CR4CU220812S12
+            else
+                config_dir=
+            fi
+
+            gcode_dir=K1
+            ;;
+
+        "CR-K1 Max")
+            if [ "$board" = "CR4CU220812S11" ]; then
+                config_dir=K1_MAX_CR4CU220812S11
+            elif [ "$board" = "CR4CU220812S12" ]; then
+                config_dir=K1_MAX_CR4CU220812S12
+            else
+                config_dir=
+            fi
+
+            gcode_dir=K1_Max
+            ;;
+
+        "Nebula Pad")
+            config_dir=Nebula/Ender3S1
+            gcode_dir=
+            ;;
+
+        *)
+            config_dir=
+            gcode_dir=
+            ;;
+
+    esac
+
+    if [ -s $PRINTER_CONFIG_DIR/printer.cfg ]; then
+        if [ -s $PRINTER_CONFIG_DIR/printer_params.cfg ]; then
+            echo "no need to update custom config files"
+        else
+            [ "x${config_dir}" != "x" -a -d /usr/share/klipper/config/${config_dir} ] && {
+                # keep printer.cfg
+                cp -af `ls /usr/share/klipper/config/${config_dir}/*.cfg | grep -v printer.cfg | xargs` $PRINTER_CONFIG_DIR/
+                sync
+            }
+        fi
+
+        # update printer.cfg and keep SAVE_CONFIG section
+        update_config "/usr/share/klipper/config/${config_dir}/printer.cfg" $PRINTER_CONFIG_DIR/printer.cfg
+    else
+        [ "x${config_dir}" != "x" -a -d /usr/share/klipper/config/${config_dir} ] && {
+            cp -af /usr/share/klipper/config/${config_dir}/*.cfg $PRINTER_CONFIG_DIR/
+            sync
+        }
+
+        [ "x${gcode_dir}" != "x" -a -d /usr/share/klipper/gcodes/${gcode_dir} ] && {
+            find /usr/share/klipper/gcodes/${gcode_dir} -iname "*.gcode" -exec cp {} ${GCODE_FILES_DIR}/ \;
+            sync
+        }
+    fi
+}
+
+start() {
+
+        mcu_reset
+
+        [ -d $PRINTER_DATA_DIR ] || mkdir -p $PRINTER_DATA_DIR
+        [ -d $PRINTER_CONFIG_DIR ] || mkdir -p $PRINTER_CONFIG_DIR
+        [ -d $PRINTER_LOGS_DIR ] || mkdir -p $PRINTER_LOGS_DIR
+        [ -d $GCODE_FILES_DIR ] || mkdir -p $GCODE_FILES_DIR
+
+        rm_pyc
+        # copy_config
+
+        HOME=/root start-stop-daemon -S -q -b -m -p $PID_FILE \
+                --exec $PROG -- $PY_SCRIPT \
+                $PRINTER_CONFIG_DIR/printer.cfg \
+                -l $PRINTER_LOGS_DIR/klippy.log \
+                -a /tmp/klippy_uds
+}
+stop() {
+        start-stop-daemon -K -q -p $PID_FILE
+}
+restart() {
+        stop
+        start
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        restart
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?
