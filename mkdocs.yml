@@ -27,6 +27,7 @@ nav:
       - Index: software/index.md
       - Root access: software/root-access.md
       - Moonraker: software/moonraker.md
+  - Links: links.md
 
 # markdown extensions
 markdown_extensions:
