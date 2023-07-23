@@ -29,6 +29,9 @@ nav:
       - Moonraker: software/moonraker.md
       - Mainsail: software/mainsail.md
       - Klipper: software/klipper.md
+  - Slicer:
+      - Index: slicer/index.md
+      - PrusaSlicer: slicer/prusaslicer.md
   - Links: links.md
 
 # markdown extensions
