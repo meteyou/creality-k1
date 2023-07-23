@@ -14,6 +14,7 @@ I only turned off the "copy_config" function in the start function of the servic
 cd /etc/init.d
 rm S55klipper_service
 wget -q -O S55klipper_service https://github.com/meteyou/creality-k1/raw/main/klipper/S55klipper_service
+chmod +x S55klipper_service
 ```
 
 ## Fix bug in Klipper error report
