@@ -91,7 +91,8 @@ class FanFeedback:
         # logging.info("_handle_result_fan_check0: %s" % params)
         # self.cx_fan_status["fan0_speed"] = params.get("fan0_speed", 0)
         self.cx_fan_status = {
-            "fan0_speed": params.get("fan0_speed", 0),
+            #"fan0_speed": params.get("fan0_speed", 0),
+            "fan0_speed": 12000,
             #"fan1_speed": self.cx_fan_status.get("fan1_speed", 0),
             "fan1_speed": 3692,
             "fan2_speed": self.cx_fan_status.get("fan2_speed", 0),
@@ -103,7 +104,8 @@ class FanFeedback:
         # logging.info("_handle_result_fan_check1: %s" % params)
         # self.cx_fan_status["fan1_speed"] = params.get("fan1_speed", 0)
         self.cx_fan_status = {
-            "fan0_speed": self.cx_fan_status.get("fan0_speed", 0),
+            #"fan0_speed": self.cx_fan_status.get("fan0_speed", 0),
+            "fan0_speed": 12000,
             #"fan1_speed": params.get("fan1_speed", 0),
             "fan1_speed": 3692,
             "fan2_speed": self.cx_fan_status.get("fan2_speed", 0),
