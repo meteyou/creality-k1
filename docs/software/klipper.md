@@ -23,9 +23,18 @@ Creality forgot a `"` in the JSON error output. So this output is not a valid JS
 output message but have no issues with printing.
 
 ```bash
+# update gcode.py
 cd /usr/share/klipper/klippy
 rm gcode.py
 wget -q -O gcode.py https://github.com/meteyou/creality-k1/raw/main/klipper/klippy/gcode.py
+
+# update fan_feedback.py
+cd /usr/share/klipper/klippy/extras
+rm fan_feedback.py
+wget -q -O fan_feedback.py https://github.com/meteyou/creality-k1/raw/main/klipper/klippy/fan_feedback.py
+
+# restart klipper
+/etc/init.d/S55klipper_service restart
 ```
 
 ## Change printer.cfg
