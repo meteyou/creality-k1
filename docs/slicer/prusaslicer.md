@@ -3,7 +3,7 @@
 Here I explain how to set up PrusaSlicer to be able to slice Gcodes for the Creality K1. Furthermore, you will find a
 config bundle at the end, which you can import into PrusaSlicer.
 
-# Printer settings
+## Printer settings
 
 Important are the following Settings:
 
