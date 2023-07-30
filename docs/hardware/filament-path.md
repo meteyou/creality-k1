@@ -30,6 +30,32 @@ top panel.
 
 - Download: [Cable Chain Bowden Clip by SHaDoW6 on Printables](https://www.printables.com/model/496694-creality-k1-cable-chain-bowden-clip){:target="_blank"}
 
+## Fix Cable Chain
+
+Three chain links are inserted reverse. You can see them in the following picture. These are used in the default
+setup to lead the Bowden out here. However, this causes a problem when you move the print head to the left and then to
+the back. These three chain links block because they are turned in the wrong direction.
+
+<figure markdown>
+  ![Image title](img/cable-chain-wrong-items.jpg){ width="800" }
+  <figcaption>The three reverse elements of the cable chain</figcaption>
+</figure>
+
+These three links are easy to recognize because they are close to the front, compared to all other links that are close
+to the chain's back side. To fix the issue, you have to unhook these three links at the beginning and once at the end.
+Then you can turn them around and hook them back in. After that, the whole chain should look the same.
+
+<figure markdown>
+  ![Image title](img/cable-chain-wrong-items-fixed.jpg){ width="800" }
+  <figcaption>After the fix, the toolhead can reach the left-back corner without issues</figcaption>
+</figure>
+
+I have seen this fix here in this [YouTube short](https://www.youtube.com/shorts/zNmsJB99Xec){:target="_blank"}. In this
+video, he hangs these links out and puts one of them at the beginning of the chain, which I find is an unnecessary work.
+Just turning around and maybe take one out is quite enough.
+
+Thanks, [Omran Al Sayed](https://www.youtube.com/@omranello){:target="_blank"} for this fix!
+
 ## Replace Bowden Tube
 
 I have also replaced the standard bowden tube with a reverse bowden tube. This has an inner diameter of 3mm; thus, the
