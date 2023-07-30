@@ -61,4 +61,4 @@ Moonraker after the IP, like in the screenshot below:
 
 Here you can find a full Printer Config Bundle for the Creality K1 with 0.2mm Layer-Height and nobufil ABSx Filament:
 
-- [Download Config Bundle](../../slicer-profile/PrusaSlicer_config_bundle-Creality_K1.ini)
+- [Download Config Bundle](https://raw.githubusercontent.com/meteyou/creality-k1/main/slicer-profile/PrusaSlicer_config_bundle-Creality_K1.ini){:target="_blank"}
